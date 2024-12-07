@@ -15,6 +15,8 @@ type FormValues = {
   phNumbers: {
     number: string;
   }[];
+  age: 0;
+  dob: Date
 };
 
 const YoutubeForm = () => {
@@ -34,6 +36,8 @@ const YoutubeForm = () => {
       },
       phoneNumbers: ["", ""],
       phNumbers: [{ number: "" }],
+      age:0,
+      dob: new Date()
     },
   });
 
@@ -89,6 +93,7 @@ const YoutubeForm = () => {
           })}
         />
         <p className="text-red-400">{errors.email?.message}</p>
+
         <label htmlFor="channel">Channel</label>
         <input
           type="text"
@@ -96,6 +101,7 @@ const YoutubeForm = () => {
           {...register("channel", { required: "Channel is required" })}
         />
         <p className="text-red-400">{errors.channel?.message}</p>
+
         <label htmlFor="twitter">Twitter</label>
         <input
           type="text"
@@ -143,6 +149,23 @@ const YoutubeForm = () => {
           ))}
           <button type="button" className="bg-yellow-600 flex px-1 py-2 rounded flex-[1_0_0]" onClick={() => append({number:""})}>Add phone number</button>
         </div>
+
+        <label htmlFor="age">age</label>
+        <input
+          type="number"
+          id="age"
+          {...register("age", { required: "age is required", valueAsNumber:true })}
+        />
+        <p className="text-red-400">{errors.age?.message}</p>
+
+        <label htmlFor="dob">dob</label>
+        <input
+          type="date"
+          id="dob"
+          {...register("dob", { required: "dob is required", valueAsDate: true})}
+        />
+        <p className="text-red-400">{errors.dob?.message}</p>
+
         <button className="bg-green-600 flex px-1 py-2 rounded flex-[1_0_0]">
           Submit
         </button>
