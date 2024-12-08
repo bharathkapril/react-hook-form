@@ -144,6 +144,13 @@ const YoutubeForm = () => {
                   "This domain is not supported"
                 );
               },
+              emailAvailable: async (fieldVales) => {
+                const response = await fetch(
+                  `https://jsonplaceholder.typicode.com/users?email=${fieldVales}`
+                );
+                const data = await response.json();
+                return data.length === 0 || "Email already exists";
+              },
             },
           })}
         />
