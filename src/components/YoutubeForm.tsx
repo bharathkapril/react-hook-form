@@ -25,7 +25,17 @@ const YoutubeForm = () => {
     register,
     control,
     handleSubmit,
-    formState: { errors, touchedFields, dirtyFields, isDirty, isValid },
+    formState: {
+      errors,
+      touchedFields,
+      dirtyFields,
+      isDirty,
+      isValid,
+      isSubmitting,
+      isSubmitted,
+      isSubmitSuccessful,
+      submitCount,
+    },
     watch,
     getValues,
     setValue,
@@ -46,6 +56,12 @@ const YoutubeForm = () => {
   });
 
   console.log("fields state", { touchedFields, dirtyFields, isDirty, isValid });
+  console.log("Submit state", {
+    isSubmitting,
+    isSubmitted,
+    isSubmitSuccessful,
+    submitCount,
+  });
 
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
