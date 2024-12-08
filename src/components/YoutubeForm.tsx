@@ -28,6 +28,7 @@ const YoutubeForm = () => {
     formState: { errors },
     watch,
     getValues,
+    setValue,
   } = useForm<FormValues>({
     defaultValues: {
       username: "",
@@ -66,8 +67,16 @@ const YoutubeForm = () => {
   const handleGetValues = () => {
     // console.log("Get Values", getValues())
     // console.log("Get twitter Values: ", getValues("social.twitter"))
-    console.log("Get twitter Values: ", getValues(["username","channel"]))
-  }
+    console.log("Get twitter Values: ", getValues(["username", "channel"]));
+  };
+
+  const handleSetValue = () => {
+    setValue("username", "", {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
+  };
 
   return (
     <div className="bg-[#0D0D0D] min-h-screen">
@@ -202,9 +211,19 @@ const YoutubeForm = () => {
         <button className="bg-green-600 flex px-1 py-2 rounded flex-[1_0_0]">
           Submit
         </button>
-
-        <button type="button" onClick={handleGetValues} className="bg-orange-600 flex px-1 py-2 rounded flex-[1_0_0]">
+        <button
+          type="button"
+          onClick={handleGetValues}
+          className="bg-orange-600 flex px-1 py-2 rounded flex-[1_0_0]"
+        >
           Get Values
+        </button>
+        <button
+          type="button"
+          onClick={handleSetValue}
+          className="bg-lime-500 flex px-1 py-2 rounded flex-[1_0_0]"
+        >
+          Set Value
         </button>
       </form>
       <DevTool control={control} />
