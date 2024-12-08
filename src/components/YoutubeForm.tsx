@@ -39,6 +39,7 @@ const YoutubeForm = () => {
     watch,
     getValues,
     setValue,
+    reset,
   } = useForm<FormValues>({
     defaultValues: {
       username: "",
@@ -81,6 +82,10 @@ const YoutubeForm = () => {
   //   });
   //   return () => subscription.unsubscribe();
   // }, [watch]);
+
+  useEffect(() => {
+    if (isSubmitSuccessful) reset();
+  }, [isSubmitSuccessful, reset]);
 
   const handleGetValues = () => {
     // console.log("Get Values", getValues())
@@ -239,6 +244,14 @@ const YoutubeForm = () => {
           className="bg-green-600 flex px-1 py-2 rounded flex-[1_0_0] disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Submit
+        </button>
+        <button
+          type="button"
+          onClick={() => reset()}
+          // disabled={!isDirty}
+          className="bg-amber-800 flex px-1 py-2 rounded flex-[1_0_0] disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Reset
         </button>
         <button
           type="button"
