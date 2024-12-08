@@ -17,7 +17,7 @@ type FormValues = {
     number: string;
   }[];
   age: 0;
-  dob: Date
+  dob: Date;
 };
 
 const YoutubeForm = () => {
@@ -26,7 +26,8 @@ const YoutubeForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-    watch
+    watch,
+    getValues,
   } = useForm<FormValues>({
     defaultValues: {
       username: "",
@@ -38,8 +39,8 @@ const YoutubeForm = () => {
       },
       phoneNumbers: ["", ""],
       phNumbers: [{ number: "" }],
-      age:0,
-      dob: new Date()
+      age: 0,
+      dob: new Date(),
     },
   });
 
@@ -55,12 +56,18 @@ const YoutubeForm = () => {
 
   // const watchUsername = watch(["username","email"])
 
-  useEffect(() => {
-    const subscription = watch((value) => {
-      console.log(value)
-    })
-    return () => subscription.unsubscribe()
-  },[watch])
+  // useEffect(() => {
+  //   const subscription = watch((value) => {
+  //     console.log(value);
+  //   });
+  //   return () => subscription.unsubscribe();
+  // }, [watch]);
+
+  const handleGetValues = () => {
+    // console.log("Get Values", getValues())
+    // console.log("Get twitter Values: ", getValues("social.twitter"))
+    console.log("Get twitter Values: ", getValues(["username","channel"]))
+  }
 
   return (
     <div className="bg-[#0D0D0D] min-h-screen">
@@ -105,7 +112,6 @@ const YoutubeForm = () => {
           })}
         />
         <p className="text-red-400">{errors.email?.message}</p>
-
         <label htmlFor="channel">Channel</label>
         <input
           type="text"
@@ -113,7 +119,6 @@ const YoutubeForm = () => {
           {...register("channel", { required: "Channel is required" })}
         />
         <p className="text-red-400">{errors.channel?.message}</p>
-
         <label htmlFor="twitter">Twitter</label>
         <input
           type="text"
@@ -151,35 +156,55 @@ const YoutubeForm = () => {
           {fields.map((field, index) => (
             <div className="gap-1 flex flex-col" key={field.id}>
               <input
-                type="text" className="mb-1"
+                type="text"
+                className="mb-1"
                 {...register(`phNumbers.${index}.number` as const)}
               />
               {index > 0 && (
-              <button type="button" className="bg-red-600 flex px-1 py-2 rounded flex-[1_0_0] mb-1" onClick={() => remove(index)}>Remove phone number</button>
+                <button
+                  type="button"
+                  className="bg-red-600 flex px-1 py-2 rounded flex-[1_0_0] mb-1"
+                  onClick={() => remove(index)}
+                >
+                  Remove phone number
+                </button>
               )}
             </div>
           ))}
-          <button type="button" className="bg-yellow-600 flex px-1 py-2 rounded flex-[1_0_0]" onClick={() => append({number:""})}>Add phone number</button>
+          <button
+            type="button"
+            className="bg-yellow-600 flex px-1 py-2 rounded flex-[1_0_0]"
+            onClick={() => append({ number: "" })}
+          >
+            Add phone number
+          </button>
         </div>
-
         <label htmlFor="age">age</label>
         <input
           type="number"
           id="age"
-          {...register("age", { required: "age is required", valueAsNumber:true })}
+          {...register("age", {
+            required: "age is required",
+            valueAsNumber: true,
+          })}
         />
         <p className="text-red-400">{errors.age?.message}</p>
-
         <label htmlFor="dob">dob</label>
         <input
           type="date"
           id="dob"
-          {...register("dob", { required: "dob is required", valueAsDate: true})}
+          {...register("dob", {
+            required: "dob is required",
+            valueAsDate: true,
+          })}
         />
         <p className="text-red-400">{errors.dob?.message}</p>
-
         <button className="bg-green-600 flex px-1 py-2 rounded flex-[1_0_0]">
           Submit
+        </button>
+
+        <button type="button" onClick={handleGetValues} className="bg-orange-600 flex px-1 py-2 rounded flex-[1_0_0]">
+          Get Values
         </button>
       </form>
       <DevTool control={control} />
