@@ -25,7 +25,7 @@ const YoutubeForm = () => {
     register,
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, touchedFields, dirtyFields, isDirty },
     watch,
     getValues,
     setValue,
@@ -44,6 +44,8 @@ const YoutubeForm = () => {
       dob: new Date(),
     },
   });
+
+  console.log("first", { touchedFields, dirtyFields, isDirty });
 
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
