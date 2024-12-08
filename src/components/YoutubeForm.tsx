@@ -1,4 +1,4 @@
-import { useFieldArray, useForm } from "react-hook-form";
+import { FieldErrors, useFieldArray, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { useEffect } from "react";
 
@@ -80,12 +80,16 @@ const YoutubeForm = () => {
     });
   };
 
+  const onError = (error: FieldErrors<FormValues>) => {
+    console.log("Form Errors", error)
+  }
+
   return (
     <div className="bg-[#0D0D0D] min-h-screen">
       {/* <h1>Watch username {watchUsername}</h1> */}
       <form
         className="flex flex-col justify-center items-center gap-2 [&_input]:w-[360px] [&_input]:px-3 [&_input]:py-[6px] [&_input]:border [&_input]:border-[#ccc] [&_input]:rounded font-normal leading-6 text-lg [&_label]:text-white"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit, onError)}
         noValidate
       >
         <label htmlFor="username">Username</label>
