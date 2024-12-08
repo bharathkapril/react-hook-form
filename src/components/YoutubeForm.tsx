@@ -134,7 +134,11 @@ const YoutubeForm = () => {
         <input
           type="text"
           id="twitter"
-          {...register("social.twitter", { required: "Twitter is required" })}
+          {...register("social.twitter", {
+            required: "Twitter is required",
+            // disabled: true,
+            disabled: watch("channel") === "",
+          })}
         />
         <p className="text-red-400">{errors.social?.twitter?.message}</p>
         <label htmlFor="facebook">facebook</label>
