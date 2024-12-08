@@ -54,6 +54,7 @@ const YoutubeForm = () => {
       age: 0,
       dob: new Date(),
     },
+    mode: "onBlur", // mode: onChange | onBlur | onSubmit | onTouched | all = 'onSubmit'
   });
 
   console.log("fields state", { touchedFields, dirtyFields, isDirty, isValid });
