@@ -25,7 +25,7 @@ const YoutubeForm = () => {
     register,
     control,
     handleSubmit,
-    formState: { errors, touchedFields, dirtyFields, isDirty },
+    formState: { errors, touchedFields, dirtyFields, isDirty, isValid },
     watch,
     getValues,
     setValue,
@@ -45,7 +45,7 @@ const YoutubeForm = () => {
     },
   });
 
-  console.log("first", { touchedFields, dirtyFields, isDirty });
+  console.log("fields state", { touchedFields, dirtyFields, isDirty, isValid });
 
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
@@ -81,8 +81,8 @@ const YoutubeForm = () => {
   };
 
   const onError = (error: FieldErrors<FormValues>) => {
-    console.log("Form Errors", error)
-  }
+    console.log("Form Errors", error);
+  };
 
   return (
     <div className="bg-[#0D0D0D] min-h-screen">
@@ -218,7 +218,10 @@ const YoutubeForm = () => {
           })}
         />
         <p className="text-red-400">{errors.dob?.message}</p>
-        <button className="bg-green-600 flex px-1 py-2 rounded flex-[1_0_0]">
+        <button
+          disabled={!isDirty || !isValid}
+          className="bg-green-600 flex px-1 py-2 rounded flex-[1_0_0] disabled:opacity-50 disabled:cursor-not-allowed"
+        >
           Submit
         </button>
         <button
